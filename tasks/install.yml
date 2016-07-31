@@ -1,0 +1,29 @@
+---
+
+## Install Java
+
+- name: java | Accept Oracle license prior JDK installation
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections; echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+    creates=/usr/lib/jvm/java-8-oracle
+
+- name: java | add repository
+  apt_repository:
+    repo=ppa:webupd8team/java
+    state=present
+
+- name: update repositories cache
+  apt: update_cache=yes
+
+- name: java | Install dependencies
+  apt:
+    pkg=oracle-java8-installer
+    state=present
+
+
+## Install Zookeeper
+
+- name: install zookeeper
+  apt:
+    name=zookeeperd={{zookeeper_version}}
+    install_recommends=false
+    state=present

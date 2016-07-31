@@ -1,0 +1,15 @@
+---
+# setup
+zookeeper_version: 3.4.8-1
+zookeeper_hosts: "{{ansible_fqdn}}:2181"
+
+# configuration
+zookeeper_group: zookeeper
+zookeeper_user: zookeeper
+zookeeper_conf_dir: /etc/zookeeper/conf
+zookeeper_log_dir: /var/log/zookeeper
+
+zookeeper_maxClientCnxns: 60
+zookeeper_client_port: 2181
+
+verify: True

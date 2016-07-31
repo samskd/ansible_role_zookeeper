@@ -1,0 +1,9 @@
+---
+- name: get zookeeper status
+  service: name=zookeeper state=running
+  ignore_errors: true
+  register: zookeeper_status
+
+- name: stop zookeeper
+  service: name=zookeeper state=stopped
+  when: zookeeper_status.state is defined and zookeeper_status.state.find('started') != -1

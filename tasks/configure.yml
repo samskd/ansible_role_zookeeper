@@ -1,0 +1,17 @@
+---
+- name: setup zoo.cfg
+  template: dest={{zookeeper_conf_dir}}/zoo.cfg src=zoo.cfg.j2
+
+- name: setup myid
+  template: dest={{zookeeper_conf_dir}}/myid src=myid.j2
+
+- name: setup environment
+  template: dest={{zookeeper_conf_dir}}/environment src=environment.j2
+
+- name: create log_dir
+  file: path={{zookeeper_log_dir}} state=directory owner=zookeeper group=zookeeper mode=755
+
+- name: setup log4j
+  template: dest={{zookeeper_conf_dir}}/log4j.properties owner=root group=root mode=644 src=log4j.properties.j2
+
+- meta: flush_handlers
